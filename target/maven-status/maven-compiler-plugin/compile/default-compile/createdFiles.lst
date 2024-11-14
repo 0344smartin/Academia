@@ -1,0 +1,13 @@
+com/mycompany/practica2/dto/Reporte.class
+com/mycompany/practica2/daos/DAOAlumno.class
+com/mycompany/practica2/dto/Profesor.class
+com/mycompany/practica2/dto/Aula.class
+com/mycompany/practica2/interfaces/IDAO.class
+com/mycompany/practica2/dto/Asignatura.class
+com/mycompany/practica2/Practica2.class
+com/mycompany/practica2/DBConections/Connect2H2.class
+com/mycompany/practica2/dto/Alumno.class
+com/mycompany/practica2/dto/Asignacion.class
+com/mycompany/practica2/dto/Incidencia.class
+com/mycompany/practica2/dto/Matricula.class
+com/mycompany/practica2/dto/Curso.class
