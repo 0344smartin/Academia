@@ -4,27 +4,60 @@
  */
 package com.mycompany.practica2.daos;
 
+import com.mycompany.practica2.DBConections.Connect2H2;
 import com.mycompany.practica2.interfaces.IDAO;
 import com.mycompany.practica2.dto.Alumno;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*"INSERT INTO jugadores (nombre, posicion, edad) VALUES ( ?, ? , ? )",
         "SELECT * FROM jugadores WHERE id = ?;",
         "UPDATE jugadores SET nombre = ? , posicion = ?, edad = ? WHERE (id = ?);",
         "DELETE FROM jugadores WHERE (id = ?);",
         "SELECT * FROM jugadores;"
-*/
-public class DAOAlumno implements IDAO<Alumno, Integer>{
+ */
+public class DAOAlumno implements IDAO<Alumno, Integer> {
 
     private final String INSERT = "INSERT INTO alumno (dni, nombre, apellidos, direccion, nacimiento, CP, telefono) VALUES (?,?,?,?,?,?,?);";
     private final String READ = "SELECT * FROM alumno WHERE dni = ?;";
     private final String READ_ALL = "SELECT * FROM alumno;";
-    
-    
+    private Connection conn;
+    private Alumno alumno;
+    private ArrayList<Alumno> alumnos;
+
+    public DAOAlumno() {
+        conn = Connect2H2.getInstance().getConnection();
+        alumno = new Alumno();
+        alumnos = new ArrayList<>();
+    }
+
     @Override
-    public boolean createRecord(Alumno model) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int createRecord(Alumno alumno) {
+        int res = 0;
+        try {
+            PreparedStatement pdst = conn.prepareStatement(INSERT);
+            
+            pdst.setString(1, alumno.getDni());
+            pdst.setString(2, alumno.getNombre());
+            pdst.setString(3, alumno.getApellidos());
+            pdst.setString(4, alumno.getDireccion());
+            pdst.setDate(5, new Date(alumno.getNacimiento().getTime()));
+            pdst.setString(6, alumno.getCp());
+            pdst.setString(7, alumno.getTelefono());
+
+            res = pdst.executeUpdate();
+            return res;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOAlumno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return res;
     }
 
     @Override
@@ -44,9 +77,23 @@ public class DAOAlumno implements IDAO<Alumno, Integer>{
 
     @Override
     public List<Alumno> readRecords() {
-        List<Alumno> alumnos = new ArrayList<>();
-        
+        try {
+            alumnos.clear();
+            PreparedStatement pdst = conn.prepareStatement(READ_ALL);
+            ResultSet res = pdst.executeQuery();
+            while (res.next()) {
+                alumno.setDni(res.getString("dni"));
+                alumno.setNombre(res.getString("nombre"));
+                alumno.setApellidos(res.getString("apellidos"));
+                alumno.setDireccion(res.getString("direccion"));
+                alumno.setCp(res.getString("CP"));
+                alumno.setTelefono(res.getString("telefono"));
+                alumnos.add(alumno);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOAlumno.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return alumnos;
     }
-    
+
 }

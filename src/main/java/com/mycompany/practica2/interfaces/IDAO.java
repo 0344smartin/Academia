@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IDAO<T, V> {
     
-    public boolean createRecord(T model);
+    public int createRecord(T model);
 
     public T readRecord(V idModel);
 
