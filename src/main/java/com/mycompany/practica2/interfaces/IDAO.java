@@ -10,11 +10,11 @@ public interface IDAO<T, V> {
     
     public int createRecord(T model);
 
-    public T readRecord(V idModel);
+    public T readRecord(String dni);
 
-    public int updateRecord(T model, V idModel);
+    public int updateRecord(T model, String dni);
 
-    public int deleteRecord(V idModel);
+    public int deleteRecord(String dni);
 
     public List<T> readRecords();
 }

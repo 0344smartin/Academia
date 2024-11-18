@@ -7,6 +7,7 @@ package com.mycompany.practica2.daos;
 import com.mycompany.practica2.DBConections.Connect2H2;
 import com.mycompany.practica2.interfaces.IDAO;
 import com.mycompany.practica2.dtos.Alumno;
+import com.mycompany.practica2.dtos.Profesor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,62 +24,63 @@ import java.util.logging.Logger;
         "DELETE FROM jugadores WHERE (id = ?);",
         "SELECT * FROM jugadores;"
  */
-public class DAOAlumno implements IDAO<Alumno, Integer> {
+public class DAOProfesor implements IDAO<Profesor, Integer> {
 
-    private final String INSERT = "INSERT INTO alumno (dni, nombre, apellidos, direccion, nacimiento, CP, telefono) VALUES (?,?,?,?,?,?,?);";
-    private final String READ = "SELECT * FROM alumno WHERE dni = ?;";
-    private final String READ_ALL = "SELECT * FROM alumno;";
+    private final String INSERT = "INSERT INTO profesor (dni, nombre, apellidos, direccion, nacimiento, CP, telefono) VALUES (?,?,?,?,?,?,?);";
+    private final String READ = "SELECT * FROM profesor WHERE dni = ?;";
+    private final String READ_ALL = "SELECT * FROM profesor;";
     private Connection conn;
-    private Alumno alumno;
-    private ArrayList<Alumno> alumnos;
+    private Profesor profesor;
+    private ArrayList<Profesor> profesores;
 
-    public DAOAlumno() {
+    public DAOProfesor() {
         conn = Connect2H2.getInstance().getConnection();
-        alumno = new Alumno();
-        alumnos = new ArrayList<>();
+        profesor = new Profesor();
+        profesores = new ArrayList<>();
     }
 
     @Override
-    public int createRecord(Alumno alumno) {
+    public int createRecord(Profesor profesor) {
         int res = 0;
         try {
             PreparedStatement pdst = conn.prepareStatement(INSERT);
-            
-            pdst.setString(1, alumno.getDni());
-            pdst.setString(2, alumno.getNombre());
-            pdst.setString(3, alumno.getApellidos());
-            pdst.setString(4, alumno.getDireccion());
-            pdst.setDate(5, new Date(alumno.getNacimiento().getTime()));
-            pdst.setString(6, alumno.getCp());
-            pdst.setString(7, alumno.getTelefono());
+
+            pdst.setString(1, profesor.getDni());
+            pdst.setString(2, profesor.getNombre());
+            pdst.setString(3, profesor.getApellidos());
+            pdst.setString(4, profesor.getDireccion());
+            pdst.setDate(5, new Date(profesor.getNacimiento().getTime()));
+            pdst.setString(6, profesor.getCp());
+            pdst.setString(7, profesor.getTelefono());
 
             res = pdst.executeUpdate();
             return res;
         } catch (SQLException ex) {
-            Logger.getLogger(DAOAlumno.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOProfesor.class.getName()).log(Level.SEVERE, null, ex);
         }
         return res;
     }
 
     @Override
-    public Alumno readRecord(String dni) { 
+    public Profesor readRecord(String dni) {
         try {
             PreparedStatement pdst = conn.prepareStatement(READ);
             ResultSet res = pdst.executeQuery();
-            alumno.setDni(res.getNString("dni"));
-            alumno.setNombre(res.getNString("nombre"));
-            alumno.setApellidos(res.getNString("apellidos"));
-            alumno.setDireccion(res.getNString("direccion"));
-            alumno.setCp(res.getNString("CP"));
-            alumno.setTelefono(res.getNString("telefono"));
-            return alumno;
+            profesor.setDni(res.getNString("dni"));
+            profesor.setNombre(res.getNString("nombre"));
+            profesor.setApellidos(res.getNString("apellidos"));
+            profesor.setDireccion(res.getNString("direccion"));
+            profesor.setCp(res.getNString("CP"));
+            profesor.setTelefono(res.getNString("telefono"));
+            return profesor;
         } catch (SQLException ex) {
             Logger.getLogger(DAOProfesor.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;    }
+        return null;
+    }
 
     @Override
-    public int updateRecord(Alumno model, String dni) {
+    public int updateRecord(Profesor model, String dni) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -88,24 +90,24 @@ public class DAOAlumno implements IDAO<Alumno, Integer> {
     }
 
     @Override
-    public List<Alumno> readRecords() {
+    public List<Profesor> readRecords() {
         try {
-            alumnos.clear();
+            profesores.clear();
             PreparedStatement pdst = conn.prepareStatement(READ_ALL);
             ResultSet res = pdst.executeQuery();
             while (res.next()) {
-                alumno.setDni(res.getString("dni"));
-                alumno.setNombre(res.getString("nombre"));
-                alumno.setApellidos(res.getString("apellidos"));
-                alumno.setDireccion(res.getString("direccion"));
-                alumno.setCp(res.getString("CP"));
-                alumno.setTelefono(res.getString("telefono"));
-                alumnos.add(alumno);
+                profesor.setDni(res.getString("dni"));
+                profesor.setNombre(res.getString("nombre"));
+                profesor.setApellidos(res.getString("apellidos"));
+                profesor.setDireccion(res.getString("direccion"));
+                profesor.setCp(res.getString("CP"));
+                profesor.setTelefono(res.getString("telefono"));
+                profesores.add(profesor);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DAOAlumno.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOProfesor.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return alumnos;
+        return profesores;
     }
 
 }
