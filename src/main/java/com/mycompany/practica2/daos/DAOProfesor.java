@@ -70,6 +70,7 @@ public class DAOProfesor implements IDAO<Profesor, Integer> {
             profesor.setNombre(res.getNString("nombre"));
             profesor.setApellidos(res.getNString("apellidos"));
             profesor.setDireccion(res.getNString("direccion"));
+            profesor.setNacimiento(new Date(res.getDate("nacimiento").getTime()));
             profesor.setCp(res.getNString("CP"));
             profesor.setTelefono(res.getNString("telefono"));
             return profesor;

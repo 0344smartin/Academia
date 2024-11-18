@@ -68,7 +68,8 @@ public class DAOAlumno implements IDAO<Alumno, Integer> {
             alumno.setDni(res.getNString("dni"));
             alumno.setNombre(res.getNString("nombre"));
             alumno.setApellidos(res.getNString("apellidos"));
-            alumno.setDireccion(res.getNString("direccion"));
+            alumno.setDireccion(res.getNString("direccion"));            
+            alumno.setNacimiento(new Date(res.getDate("nacimiento").getTime()));
             alumno.setCp(res.getNString("CP"));
             alumno.setTelefono(res.getNString("telefono"));
             return alumno;
