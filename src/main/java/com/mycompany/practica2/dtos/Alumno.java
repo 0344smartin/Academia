@@ -71,4 +71,19 @@ public class Alumno {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
+
+    public Alumno(String dni, String nombre, String apellidos, String direccion, Date nacimiento, String cp, String telefono) {
+        this.dni = dni;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.direccion = direccion;
+        this.nacimiento = nacimiento;
+        this.cp = cp;
+        this.telefono = telefono;
+    }
+    
+    public Alumno(){
+        
+    }
+    
 }

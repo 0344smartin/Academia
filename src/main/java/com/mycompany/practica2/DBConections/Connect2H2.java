@@ -7,6 +7,7 @@ package com.mycompany.practica2.DBConections;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import org.h2.Driver;
 
 public class Connect2H2 {
 
@@ -19,7 +20,7 @@ public class Connect2H2 {
             conn = DriverManager.getConnection(URI, "SA", "");
             System.out.println("Connection to the H2 database was successful!");
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println(e);
         }
     }
     
@@ -30,7 +31,7 @@ public class Connect2H2 {
         return H2Instance;
     }
        
-    public Connection getConnection(){
+    public Connection getConn(){
         return conn;
     }
 

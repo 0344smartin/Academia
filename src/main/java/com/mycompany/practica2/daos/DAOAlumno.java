@@ -26,7 +26,8 @@ import java.util.logging.Logger;
 public class DAOAlumno implements IDAO<Alumno, Integer> {
 
     private final String INSERT = "INSERT INTO alumno (dni, nombre, apellidos, direccion, nacimiento, CP, telefono) VALUES (?,?,?,?,?,?,?);";
-    private final String READ = "SELECT * FROM alumno WHERE dni = ?;";
+    private final String READ = "SELECT * FROM alumno WHERE dni = ?;";    
+    private final String DELETE = "DELETE FROM alumno WHERE dni = ?;";
     private final String READ_ALL = "SELECT * FROM alumno;";
     private Connection conn;
     private Alumno alumno;
@@ -43,7 +44,6 @@ public class DAOAlumno implements IDAO<Alumno, Integer> {
         int res = 0;
         try {
             PreparedStatement pdst = conn.prepareStatement(INSERT);
-            
             pdst.setString(1, alumno.getDni());
             pdst.setString(2, alumno.getNombre());
             pdst.setString(3, alumno.getApellidos());
@@ -63,7 +63,8 @@ public class DAOAlumno implements IDAO<Alumno, Integer> {
     @Override
     public Alumno readRecord(String dni) { 
         try {
-            PreparedStatement pdst = conn.prepareStatement(READ);
+            PreparedStatement pdst = conn.prepareStatement(READ);     
+            pdst.setString(1, dni);
             ResultSet res = pdst.executeQuery();
             alumno.setDni(res.getNString("dni"));
             alumno.setNombre(res.getNString("nombre"));
@@ -85,7 +86,14 @@ public class DAOAlumno implements IDAO<Alumno, Integer> {
 
     @Override
     public int deleteRecord(String dni) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            PreparedStatement pdst = conn.prepareStatement(DELETE);
+            pdst.setString(1, dni);
+            return pdst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOProfesor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;    
     }
 
     @Override

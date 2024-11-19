@@ -28,6 +28,7 @@ public class DAOProfesor implements IDAO<Profesor, Integer> {
 
     private final String INSERT = "INSERT INTO profesor (dni, nombre, apellidos, direccion, nacimiento, CP, telefono) VALUES (?,?,?,?,?,?,?);";
     private final String READ = "SELECT * FROM profesor WHERE dni = ?;";
+    private final String DELETE = "DELETE FROM profesor WHERE dni = ?;";
     private final String READ_ALL = "SELECT * FROM profesor;";
     private Connection conn;
     private Profesor profesor;
@@ -52,7 +53,6 @@ public class DAOProfesor implements IDAO<Profesor, Integer> {
             pdst.setDate(5, new Date(profesor.getNacimiento().getTime()));
             pdst.setString(6, profesor.getCp());
             pdst.setString(7, profesor.getTelefono());
-
             res = pdst.executeUpdate();
             return res;
         } catch (SQLException ex) {
@@ -65,6 +65,7 @@ public class DAOProfesor implements IDAO<Profesor, Integer> {
     public Profesor readRecord(String dni) {
         try {
             PreparedStatement pdst = conn.prepareStatement(READ);
+            pdst.setString(1, dni);
             ResultSet res = pdst.executeQuery();
             profesor.setDni(res.getNString("dni"));
             profesor.setNombre(res.getNString("nombre"));
@@ -87,7 +88,14 @@ public class DAOProfesor implements IDAO<Profesor, Integer> {
 
     @Override
     public int deleteRecord(String dni) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            PreparedStatement pdst = conn.prepareStatement(DELETE);
+            pdst.setString(1, dni);
+            return pdst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOProfesor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
     }
 
     @Override
