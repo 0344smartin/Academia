@@ -1,0 +1,1578 @@
+2024-11-25 15:48:02.424153+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE profesor(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:02.428043+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE alumno(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:02.431311+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "PROFESOR" no encontrada
+Table "PROFESOR" not found; SQL statement:
+CREATE TABLE asignatura(cod_asignatura INTEGER PRIMARY KEY NOT NULL, nombre varchar(16), horas int, cod_curso INTEGER references curso, cod_profesor varchar(9) references profesor) [42102-232]
+2024-11-25 15:48:02.432607+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE reporte(cod_asignatura INTEGER NOT NULL references asignatura, dni_alumno varchar(9) NOT NULL references alumno, cod_incidencia INTEGER NOT NULL references incidencia, PRIMARY KEY (cod_asignatura,dni_alumno,cod_incidencia)) [42102-232]
+2024-11-25 15:48:02.433767+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ALUMNO" no encontrada
+Table "ALUMNO" not found; SQL statement:
+CREATE TABLE matricula(dni_alumno varchar(9) NOT NULL references alumno, cod_asignatura INTEGER NOT NULL references asignatura, calificacion INTEGER,  PRIMARY KEY (dni_alumno, cod_asignatura)) [42102-232]
+2024-11-25 15:48:02.436715+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE asignacion(cod_aula INTEGER NOT NULL references aula, cod_asignatura INTEGER NOT NULL references asignatura, fecha date) [42102-232]
+2024-11-25 15:48:13.893491+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE profesor(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:13.895352+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE alumno(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:13.897314+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "CURSO" ya existe
+Table "CURSO" already exists; SQL statement:
+CREATE TABLE curso(cod_curso INTEGER PRIMARY KEY NOT NULL) [42101-232]
+2024-11-25 15:48:13.899891+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "PROFESOR" no encontrada
+Table "PROFESOR" not found; SQL statement:
+CREATE TABLE asignatura(cod_asignatura INTEGER PRIMARY KEY NOT NULL, nombre varchar(16), horas int, cod_curso INTEGER references curso, cod_profesor varchar(9) references profesor) [42102-232]
+2024-11-25 15:48:13.900685+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "INCIDENCIA" ya existe
+Table "INCIDENCIA" already exists; SQL statement:
+CREATE TABLE incidencia(cod_incidencia INTEGER PRIMARY KEY NOT NULL, descripcion text) [42101-232]
+2024-11-25 15:48:13.902059+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE reporte(cod_asignatura INTEGER NOT NULL references asignatura, dni_alumno varchar(9) NOT NULL references alumno, cod_incidencia INTEGER NOT NULL references incidencia, PRIMARY KEY (cod_asignatura,dni_alumno,cod_incidencia)) [42102-232]
+2024-11-25 15:48:13.902792+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "AULA" ya existe
+Table "AULA" already exists; SQL statement:
+CREATE TABLE aula(cod_aula INTEGER PRIMARY KEY NOT NULL, piso INTEGER, capacidad INTEGER) [42101-232]
+2024-11-25 15:48:13.905514+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ALUMNO" no encontrada
+Table "ALUMNO" not found; SQL statement:
+CREATE TABLE matricula(dni_alumno varchar(9) NOT NULL references alumno, cod_asignatura INTEGER NOT NULL references asignatura, calificacion INTEGER,  PRIMARY KEY (dni_alumno, cod_asignatura)) [42102-232]
+2024-11-25 15:48:13.907583+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE asignacion(cod_aula INTEGER NOT NULL references aula, cod_asignatura INTEGER NOT NULL references asignatura, fecha date) [42102-232]
+2024-11-25 15:48:14.369784+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE profesor(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:14.371027+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE alumno(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:14.373229+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "CURSO" ya existe
+Table "CURSO" already exists; SQL statement:
+CREATE TABLE curso(cod_curso INTEGER PRIMARY KEY NOT NULL) [42101-232]
+2024-11-25 15:48:14.375749+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "PROFESOR" no encontrada
+Table "PROFESOR" not found; SQL statement:
+CREATE TABLE asignatura(cod_asignatura INTEGER PRIMARY KEY NOT NULL, nombre varchar(16), horas int, cod_curso INTEGER references curso, cod_profesor varchar(9) references profesor) [42102-232]
+2024-11-25 15:48:14.376201+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "INCIDENCIA" ya existe
+Table "INCIDENCIA" already exists; SQL statement:
+CREATE TABLE incidencia(cod_incidencia INTEGER PRIMARY KEY NOT NULL, descripcion text) [42101-232]
+2024-11-25 15:48:14.376902+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE reporte(cod_asignatura INTEGER NOT NULL references asignatura, dni_alumno varchar(9) NOT NULL references alumno, cod_incidencia INTEGER NOT NULL references incidencia, PRIMARY KEY (cod_asignatura,dni_alumno,cod_incidencia)) [42102-232]
+2024-11-25 15:48:14.377245+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "AULA" ya existe
+Table "AULA" already exists; SQL statement:
+CREATE TABLE aula(cod_aula INTEGER PRIMARY KEY NOT NULL, piso INTEGER, capacidad INTEGER) [42101-232]
+2024-11-25 15:48:14.377675+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ALUMNO" no encontrada
+Table "ALUMNO" not found; SQL statement:
+CREATE TABLE matricula(dni_alumno varchar(9) NOT NULL references alumno, cod_asignatura INTEGER NOT NULL references asignatura, calificacion INTEGER,  PRIMARY KEY (dni_alumno, cod_asignatura)) [42102-232]
+2024-11-25 15:48:14.378418+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE asignacion(cod_aula INTEGER NOT NULL references aula, cod_asignatura INTEGER NOT NULL references asignatura, fecha date) [42102-232]
+2024-11-25 15:48:14.576463+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE profesor(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:14.577823+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE alumno(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:14.579120+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "CURSO" ya existe
+Table "CURSO" already exists; SQL statement:
+CREATE TABLE curso(cod_curso INTEGER PRIMARY KEY NOT NULL) [42101-232]
+2024-11-25 15:48:14.581013+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "PROFESOR" no encontrada
+Table "PROFESOR" not found; SQL statement:
+CREATE TABLE asignatura(cod_asignatura INTEGER PRIMARY KEY NOT NULL, nombre varchar(16), horas int, cod_curso INTEGER references curso, cod_profesor varchar(9) references profesor) [42102-232]
+2024-11-25 15:48:14.581564+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "INCIDENCIA" ya existe
+Table "INCIDENCIA" already exists; SQL statement:
+CREATE TABLE incidencia(cod_incidencia INTEGER PRIMARY KEY NOT NULL, descripcion text) [42101-232]
+2024-11-25 15:48:14.582489+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE reporte(cod_asignatura INTEGER NOT NULL references asignatura, dni_alumno varchar(9) NOT NULL references alumno, cod_incidencia INTEGER NOT NULL references incidencia, PRIMARY KEY (cod_asignatura,dni_alumno,cod_incidencia)) [42102-232]
+2024-11-25 15:48:14.583149+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "AULA" ya existe
+Table "AULA" already exists; SQL statement:
+CREATE TABLE aula(cod_aula INTEGER PRIMARY KEY NOT NULL, piso INTEGER, capacidad INTEGER) [42101-232]
+2024-11-25 15:48:14.583988+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ALUMNO" no encontrada
+Table "ALUMNO" not found; SQL statement:
+CREATE TABLE matricula(dni_alumno varchar(9) NOT NULL references alumno, cod_asignatura INTEGER NOT NULL references asignatura, calificacion INTEGER,  PRIMARY KEY (dni_alumno, cod_asignatura)) [42102-232]
+2024-11-25 15:48:14.586408+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE asignacion(cod_aula INTEGER NOT NULL references aula, cod_asignatura INTEGER NOT NULL references asignatura, fecha date) [42102-232]
+2024-11-25 15:48:14.748836+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE profesor(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:14.750926+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE alumno(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:14.753116+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "CURSO" ya existe
+Table "CURSO" already exists; SQL statement:
+CREATE TABLE curso(cod_curso INTEGER PRIMARY KEY NOT NULL) [42101-232]
+2024-11-25 15:48:14.757155+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "PROFESOR" no encontrada
+Table "PROFESOR" not found; SQL statement:
+CREATE TABLE asignatura(cod_asignatura INTEGER PRIMARY KEY NOT NULL, nombre varchar(16), horas int, cod_curso INTEGER references curso, cod_profesor varchar(9) references profesor) [42102-232]
+2024-11-25 15:48:14.758822+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "INCIDENCIA" ya existe
+Table "INCIDENCIA" already exists; SQL statement:
+CREATE TABLE incidencia(cod_incidencia INTEGER PRIMARY KEY NOT NULL, descripcion text) [42101-232]
+2024-11-25 15:48:14.759579+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE reporte(cod_asignatura INTEGER NOT NULL references asignatura, dni_alumno varchar(9) NOT NULL references alumno, cod_incidencia INTEGER NOT NULL references incidencia, PRIMARY KEY (cod_asignatura,dni_alumno,cod_incidencia)) [42102-232]
+2024-11-25 15:48:14.759898+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "AULA" ya existe
+Table "AULA" already exists; SQL statement:
+CREATE TABLE aula(cod_aula INTEGER PRIMARY KEY NOT NULL, piso INTEGER, capacidad INTEGER) [42101-232]
+2024-11-25 15:48:14.761434+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ALUMNO" no encontrada
+Table "ALUMNO" not found; SQL statement:
+CREATE TABLE matricula(dni_alumno varchar(9) NOT NULL references alumno, cod_asignatura INTEGER NOT NULL references asignatura, calificacion INTEGER,  PRIMARY KEY (dni_alumno, cod_asignatura)) [42102-232]
+2024-11-25 15:48:14.764251+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE asignacion(cod_aula INTEGER NOT NULL references aula, cod_asignatura INTEGER NOT NULL references asignatura, fecha date) [42102-232]
+2024-11-25 15:48:14.915227+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE profesor(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:14.917384+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE alumno(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:14.919285+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "CURSO" ya existe
+Table "CURSO" already exists; SQL statement:
+CREATE TABLE curso(cod_curso INTEGER PRIMARY KEY NOT NULL) [42101-232]
+2024-11-25 15:48:14.921000+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "PROFESOR" no encontrada
+Table "PROFESOR" not found; SQL statement:
+CREATE TABLE asignatura(cod_asignatura INTEGER PRIMARY KEY NOT NULL, nombre varchar(16), horas int, cod_curso INTEGER references curso, cod_profesor varchar(9) references profesor) [42102-232]
+2024-11-25 15:48:14.921368+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "INCIDENCIA" ya existe
+Table "INCIDENCIA" already exists; SQL statement:
+CREATE TABLE incidencia(cod_incidencia INTEGER PRIMARY KEY NOT NULL, descripcion text) [42101-232]
+2024-11-25 15:48:14.921909+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE reporte(cod_asignatura INTEGER NOT NULL references asignatura, dni_alumno varchar(9) NOT NULL references alumno, cod_incidencia INTEGER NOT NULL references incidencia, PRIMARY KEY (cod_asignatura,dni_alumno,cod_incidencia)) [42102-232]
+2024-11-25 15:48:14.922220+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "AULA" ya existe
+Table "AULA" already exists; SQL statement:
+CREATE TABLE aula(cod_aula INTEGER PRIMARY KEY NOT NULL, piso INTEGER, capacidad INTEGER) [42101-232]
+2024-11-25 15:48:14.922626+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ALUMNO" no encontrada
+Table "ALUMNO" not found; SQL statement:
+CREATE TABLE matricula(dni_alumno varchar(9) NOT NULL references alumno, cod_asignatura INTEGER NOT NULL references asignatura, calificacion INTEGER,  PRIMARY KEY (dni_alumno, cod_asignatura)) [42102-232]
+2024-11-25 15:48:14.923145+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE asignacion(cod_aula INTEGER NOT NULL references aula, cod_asignatura INTEGER NOT NULL references asignatura, fecha date) [42102-232]
+2024-11-25 15:48:15.091564+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE profesor(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:15.092551+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE alumno(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:15.094596+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "CURSO" ya existe
+Table "CURSO" already exists; SQL statement:
+CREATE TABLE curso(cod_curso INTEGER PRIMARY KEY NOT NULL) [42101-232]
+2024-11-25 15:48:15.098692+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "PROFESOR" no encontrada
+Table "PROFESOR" not found; SQL statement:
+CREATE TABLE asignatura(cod_asignatura INTEGER PRIMARY KEY NOT NULL, nombre varchar(16), horas int, cod_curso INTEGER references curso, cod_profesor varchar(9) references profesor) [42102-232]
+2024-11-25 15:48:15.100146+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "INCIDENCIA" ya existe
+Table "INCIDENCIA" already exists; SQL statement:
+CREATE TABLE incidencia(cod_incidencia INTEGER PRIMARY KEY NOT NULL, descripcion text) [42101-232]
+2024-11-25 15:48:15.102139+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE reporte(cod_asignatura INTEGER NOT NULL references asignatura, dni_alumno varchar(9) NOT NULL references alumno, cod_incidencia INTEGER NOT NULL references incidencia, PRIMARY KEY (cod_asignatura,dni_alumno,cod_incidencia)) [42102-232]
+2024-11-25 15:48:15.102629+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "AULA" ya existe
+Table "AULA" already exists; SQL statement:
+CREATE TABLE aula(cod_aula INTEGER PRIMARY KEY NOT NULL, piso INTEGER, capacidad INTEGER) [42101-232]
+2024-11-25 15:48:15.103200+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ALUMNO" no encontrada
+Table "ALUMNO" not found; SQL statement:
+CREATE TABLE matricula(dni_alumno varchar(9) NOT NULL references alumno, cod_asignatura INTEGER NOT NULL references asignatura, calificacion INTEGER,  PRIMARY KEY (dni_alumno, cod_asignatura)) [42102-232]
+2024-11-25 15:48:15.104494+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE asignacion(cod_aula INTEGER NOT NULL references aula, cod_asignatura INTEGER NOT NULL references asignatura, fecha date) [42102-232]
+2024-11-25 15:48:15.253435+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE profesor(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:15.255462+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE alumno(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:15.257019+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "CURSO" ya existe
+Table "CURSO" already exists; SQL statement:
+CREATE TABLE curso(cod_curso INTEGER PRIMARY KEY NOT NULL) [42101-232]
+2024-11-25 15:48:15.259292+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "PROFESOR" no encontrada
+Table "PROFESOR" not found; SQL statement:
+CREATE TABLE asignatura(cod_asignatura INTEGER PRIMARY KEY NOT NULL, nombre varchar(16), horas int, cod_curso INTEGER references curso, cod_profesor varchar(9) references profesor) [42102-232]
+2024-11-25 15:48:15.259608+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "INCIDENCIA" ya existe
+Table "INCIDENCIA" already exists; SQL statement:
+CREATE TABLE incidencia(cod_incidencia INTEGER PRIMARY KEY NOT NULL, descripcion text) [42101-232]
+2024-11-25 15:48:15.260110+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE reporte(cod_asignatura INTEGER NOT NULL references asignatura, dni_alumno varchar(9) NOT NULL references alumno, cod_incidencia INTEGER NOT NULL references incidencia, PRIMARY KEY (cod_asignatura,dni_alumno,cod_incidencia)) [42102-232]
+2024-11-25 15:48:15.260423+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "AULA" ya existe
+Table "AULA" already exists; SQL statement:
+CREATE TABLE aula(cod_aula INTEGER PRIMARY KEY NOT NULL, piso INTEGER, capacidad INTEGER) [42101-232]
+2024-11-25 15:48:15.260816+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ALUMNO" no encontrada
+Table "ALUMNO" not found; SQL statement:
+CREATE TABLE matricula(dni_alumno varchar(9) NOT NULL references alumno, cod_asignatura INTEGER NOT NULL references asignatura, calificacion INTEGER,  PRIMARY KEY (dni_alumno, cod_asignatura)) [42102-232]
+2024-11-25 15:48:15.261317+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE asignacion(cod_aula INTEGER NOT NULL references aula, cod_asignatura INTEGER NOT NULL references asignatura, fecha date) [42102-232]
+2024-11-25 15:48:15.437036+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE profesor(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:15.438933+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE alumno(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:15.440270+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "CURSO" ya existe
+Table "CURSO" already exists; SQL statement:
+CREATE TABLE curso(cod_curso INTEGER PRIMARY KEY NOT NULL) [42101-232]
+2024-11-25 15:48:15.442341+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "PROFESOR" no encontrada
+Table "PROFESOR" not found; SQL statement:
+CREATE TABLE asignatura(cod_asignatura INTEGER PRIMARY KEY NOT NULL, nombre varchar(16), horas int, cod_curso INTEGER references curso, cod_profesor varchar(9) references profesor) [42102-232]
+2024-11-25 15:48:15.443170+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "INCIDENCIA" ya existe
+Table "INCIDENCIA" already exists; SQL statement:
+CREATE TABLE incidencia(cod_incidencia INTEGER PRIMARY KEY NOT NULL, descripcion text) [42101-232]
+2024-11-25 15:48:15.443616+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE reporte(cod_asignatura INTEGER NOT NULL references asignatura, dni_alumno varchar(9) NOT NULL references alumno, cod_incidencia INTEGER NOT NULL references incidencia, PRIMARY KEY (cod_asignatura,dni_alumno,cod_incidencia)) [42102-232]
+2024-11-25 15:48:15.443891+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "AULA" ya existe
+Table "AULA" already exists; SQL statement:
+CREATE TABLE aula(cod_aula INTEGER PRIMARY KEY NOT NULL, piso INTEGER, capacidad INTEGER) [42101-232]
+2024-11-25 15:48:15.444289+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ALUMNO" no encontrada
+Table "ALUMNO" not found; SQL statement:
+CREATE TABLE matricula(dni_alumno varchar(9) NOT NULL references alumno, cod_asignatura INTEGER NOT NULL references asignatura, calificacion INTEGER,  PRIMARY KEY (dni_alumno, cod_asignatura)) [42102-232]
+2024-11-25 15:48:15.444770+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE asignacion(cod_aula INTEGER NOT NULL references aula, cod_asignatura INTEGER NOT NULL references asignatura, fecha date) [42102-232]
+2024-11-25 15:48:32.305130+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE profesor(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:32.307145+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE alumno(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:32.308922+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "CURSO" ya existe
+Table "CURSO" already exists; SQL statement:
+CREATE TABLE curso(cod_curso INTEGER PRIMARY KEY NOT NULL) [42101-232]
+2024-11-25 15:48:32.309785+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "PROFESOR" no encontrada
+Table "PROFESOR" not found; SQL statement:
+CREATE TABLE asignatura(cod_asignatura INTEGER PRIMARY KEY NOT NULL, nombre VARCHAR(16), horas int, cod_curso INTEGER references curso, cod_profesor varchar(9) references profesor) [42102-232]
+2024-11-25 15:48:32.310057+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "INCIDENCIA" ya existe
+Table "INCIDENCIA" already exists; SQL statement:
+CREATE TABLE incidencia(cod_incidencia INTEGER PRIMARY KEY NOT NULL, descripcion text) [42101-232]
+2024-11-25 15:48:32.310487+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE reporte(cod_asignatura INTEGER NOT NULL references asignatura, dni_alumno varchar(9) NOT NULL references alumno, cod_incidencia INTEGER NOT NULL references incidencia, PRIMARY KEY (cod_asignatura,dni_alumno,cod_incidencia)) [42102-232]
+2024-11-25 15:48:32.310715+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "AULA" ya existe
+Table "AULA" already exists; SQL statement:
+CREATE TABLE aula(cod_aula INTEGER PRIMARY KEY NOT NULL, piso INTEGER, capacidad INTEGER) [42101-232]
+2024-11-25 15:48:32.311069+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ALUMNO" no encontrada
+Table "ALUMNO" not found; SQL statement:
+CREATE TABLE matricula(dni_alumno varchar(9) NOT NULL references alumno, cod_asignatura INTEGER NOT NULL references asignatura, calificacion INTEGER,  PRIMARY KEY (dni_alumno, cod_asignatura)) [42102-232]
+2024-11-25 15:48:32.311564+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE asignacion(cod_aula INTEGER NOT NULL references aula, cod_asignatura INTEGER NOT NULL references asignatura, fecha date) [42102-232]
+2024-11-25 15:48:33.787267+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE profesor(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:33.788485+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE alumno(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:33.788884+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "CURSO" ya existe
+Table "CURSO" already exists; SQL statement:
+CREATE TABLE curso(cod_curso INTEGER PRIMARY KEY NOT NULL) [42101-232]
+2024-11-25 15:48:33.789736+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "PROFESOR" no encontrada
+Table "PROFESOR" not found; SQL statement:
+CREATE TABLE asignatura(cod_asignatura INTEGER PRIMARY KEY NOT NULL, nombre VARCHAR(16), horas int, cod_curso INTEGER references curso, cod_profesor varchar(9) references profesor) [42102-232]
+2024-11-25 15:48:33.790054+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "INCIDENCIA" ya existe
+Table "INCIDENCIA" already exists; SQL statement:
+CREATE TABLE incidencia(cod_incidencia INTEGER PRIMARY KEY NOT NULL, descripcion text) [42101-232]
+2024-11-25 15:48:33.790503+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE reporte(cod_asignatura INTEGER NOT NULL references asignatura, dni_alumno varchar(9) NOT NULL references alumno, cod_incidencia INTEGER NOT NULL references incidencia, PRIMARY KEY (cod_asignatura,dni_alumno,cod_incidencia)) [42102-232]
+2024-11-25 15:48:33.790741+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "AULA" ya existe
+Table "AULA" already exists; SQL statement:
+CREATE TABLE aula(cod_aula INTEGER PRIMARY KEY NOT NULL, piso INTEGER, capacidad INTEGER) [42101-232]
+2024-11-25 15:48:33.791144+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ALUMNO" no encontrada
+Table "ALUMNO" not found; SQL statement:
+CREATE TABLE matricula(dni_alumno varchar(9) NOT NULL references alumno, cod_asignatura INTEGER NOT NULL references asignatura, calificacion INTEGER,  PRIMARY KEY (dni_alumno, cod_asignatura)) [42102-232]
+2024-11-25 15:48:33.791624+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE asignacion(cod_aula INTEGER NOT NULL references aula, cod_asignatura INTEGER NOT NULL references asignatura, fecha date) [42102-232]
+2024-11-25 15:48:34.059666+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE profesor(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:34.061198+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE alumno(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:34.062754+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "CURSO" ya existe
+Table "CURSO" already exists; SQL statement:
+CREATE TABLE curso(cod_curso INTEGER PRIMARY KEY NOT NULL) [42101-232]
+2024-11-25 15:48:34.063915+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "PROFESOR" no encontrada
+Table "PROFESOR" not found; SQL statement:
+CREATE TABLE asignatura(cod_asignatura INTEGER PRIMARY KEY NOT NULL, nombre VARCHAR(16), horas int, cod_curso INTEGER references curso, cod_profesor varchar(9) references profesor) [42102-232]
+2024-11-25 15:48:34.064166+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "INCIDENCIA" ya existe
+Table "INCIDENCIA" already exists; SQL statement:
+CREATE TABLE incidencia(cod_incidencia INTEGER PRIMARY KEY NOT NULL, descripcion text) [42101-232]
+2024-11-25 15:48:34.064572+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE reporte(cod_asignatura INTEGER NOT NULL references asignatura, dni_alumno varchar(9) NOT NULL references alumno, cod_incidencia INTEGER NOT NULL references incidencia, PRIMARY KEY (cod_asignatura,dni_alumno,cod_incidencia)) [42102-232]
+2024-11-25 15:48:34.064811+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "AULA" ya existe
+Table "AULA" already exists; SQL statement:
+CREATE TABLE aula(cod_aula INTEGER PRIMARY KEY NOT NULL, piso INTEGER, capacidad INTEGER) [42101-232]
+2024-11-25 15:48:34.065282+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ALUMNO" no encontrada
+Table "ALUMNO" not found; SQL statement:
+CREATE TABLE matricula(dni_alumno varchar(9) NOT NULL references alumno, cod_asignatura INTEGER NOT NULL references asignatura, calificacion INTEGER,  PRIMARY KEY (dni_alumno, cod_asignatura)) [42102-232]
+2024-11-25 15:48:34.065786+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE asignacion(cod_aula INTEGER NOT NULL references aula, cod_asignatura INTEGER NOT NULL references asignatura, fecha date) [42102-232]
+2024-11-25 15:48:34.270875+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE profesor(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:34.271440+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE alumno(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:34.271878+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "CURSO" ya existe
+Table "CURSO" already exists; SQL statement:
+CREATE TABLE curso(cod_curso INTEGER PRIMARY KEY NOT NULL) [42101-232]
+2024-11-25 15:48:34.274004+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "PROFESOR" no encontrada
+Table "PROFESOR" not found; SQL statement:
+CREATE TABLE asignatura(cod_asignatura INTEGER PRIMARY KEY NOT NULL, nombre VARCHAR(16), horas int, cod_curso INTEGER references curso, cod_profesor varchar(9) references profesor) [42102-232]
+2024-11-25 15:48:34.275075+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "INCIDENCIA" ya existe
+Table "INCIDENCIA" already exists; SQL statement:
+CREATE TABLE incidencia(cod_incidencia INTEGER PRIMARY KEY NOT NULL, descripcion text) [42101-232]
+2024-11-25 15:48:34.276606+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE reporte(cod_asignatura INTEGER NOT NULL references asignatura, dni_alumno varchar(9) NOT NULL references alumno, cod_incidencia INTEGER NOT NULL references incidencia, PRIMARY KEY (cod_asignatura,dni_alumno,cod_incidencia)) [42102-232]
+2024-11-25 15:48:34.277413+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "AULA" ya existe
+Table "AULA" already exists; SQL statement:
+CREATE TABLE aula(cod_aula INTEGER PRIMARY KEY NOT NULL, piso INTEGER, capacidad INTEGER) [42101-232]
+2024-11-25 15:48:34.277822+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ALUMNO" no encontrada
+Table "ALUMNO" not found; SQL statement:
+CREATE TABLE matricula(dni_alumno varchar(9) NOT NULL references alumno, cod_asignatura INTEGER NOT NULL references asignatura, calificacion INTEGER,  PRIMARY KEY (dni_alumno, cod_asignatura)) [42102-232]
+2024-11-25 15:48:34.278281+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE asignacion(cod_aula INTEGER NOT NULL references aula, cod_asignatura INTEGER NOT NULL references asignatura, fecha date) [42102-232]
+2024-11-25 15:48:34.429949+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE profesor(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:34.430506+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE alumno(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:34.430874+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "CURSO" ya existe
+Table "CURSO" already exists; SQL statement:
+CREATE TABLE curso(cod_curso INTEGER PRIMARY KEY NOT NULL) [42101-232]
+2024-11-25 15:48:34.431657+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "PROFESOR" no encontrada
+Table "PROFESOR" not found; SQL statement:
+CREATE TABLE asignatura(cod_asignatura INTEGER PRIMARY KEY NOT NULL, nombre VARCHAR(16), horas int, cod_curso INTEGER references curso, cod_profesor varchar(9) references profesor) [42102-232]
+2024-11-25 15:48:34.432015+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "INCIDENCIA" ya existe
+Table "INCIDENCIA" already exists; SQL statement:
+CREATE TABLE incidencia(cod_incidencia INTEGER PRIMARY KEY NOT NULL, descripcion text) [42101-232]
+2024-11-25 15:48:34.432428+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE reporte(cod_asignatura INTEGER NOT NULL references asignatura, dni_alumno varchar(9) NOT NULL references alumno, cod_incidencia INTEGER NOT NULL references incidencia, PRIMARY KEY (cod_asignatura,dni_alumno,cod_incidencia)) [42102-232]
+2024-11-25 15:48:34.432650+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "AULA" ya existe
+Table "AULA" already exists; SQL statement:
+CREATE TABLE aula(cod_aula INTEGER PRIMARY KEY NOT NULL, piso INTEGER, capacidad INTEGER) [42101-232]
+2024-11-25 15:48:34.433071+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ALUMNO" no encontrada
+Table "ALUMNO" not found; SQL statement:
+CREATE TABLE matricula(dni_alumno varchar(9) NOT NULL references alumno, cod_asignatura INTEGER NOT NULL references asignatura, calificacion INTEGER,  PRIMARY KEY (dni_alumno, cod_asignatura)) [42102-232]
+2024-11-25 15:48:34.433608+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE asignacion(cod_aula INTEGER NOT NULL references aula, cod_asignatura INTEGER NOT NULL references asignatura, fecha date) [42102-232]
+2024-11-25 15:48:34.780155+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE profesor(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:34.781873+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE alumno(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:34.783423+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "CURSO" ya existe
+Table "CURSO" already exists; SQL statement:
+CREATE TABLE curso(cod_curso INTEGER PRIMARY KEY NOT NULL) [42101-232]
+2024-11-25 15:48:34.785945+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "PROFESOR" no encontrada
+Table "PROFESOR" not found; SQL statement:
+CREATE TABLE asignatura(cod_asignatura INTEGER PRIMARY KEY NOT NULL, nombre VARCHAR(16), horas int, cod_curso INTEGER references curso, cod_profesor varchar(9) references profesor) [42102-232]
+2024-11-25 15:48:34.786256+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "INCIDENCIA" ya existe
+Table "INCIDENCIA" already exists; SQL statement:
+CREATE TABLE incidencia(cod_incidencia INTEGER PRIMARY KEY NOT NULL, descripcion text) [42101-232]
+2024-11-25 15:48:34.786720+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE reporte(cod_asignatura INTEGER NOT NULL references asignatura, dni_alumno varchar(9) NOT NULL references alumno, cod_incidencia INTEGER NOT NULL references incidencia, PRIMARY KEY (cod_asignatura,dni_alumno,cod_incidencia)) [42102-232]
+2024-11-25 15:48:34.787166+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "AULA" ya existe
+Table "AULA" already exists; SQL statement:
+CREATE TABLE aula(cod_aula INTEGER PRIMARY KEY NOT NULL, piso INTEGER, capacidad INTEGER) [42101-232]
+2024-11-25 15:48:34.787638+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ALUMNO" no encontrada
+Table "ALUMNO" not found; SQL statement:
+CREATE TABLE matricula(dni_alumno varchar(9) NOT NULL references alumno, cod_asignatura INTEGER NOT NULL references asignatura, calificacion INTEGER,  PRIMARY KEY (dni_alumno, cod_asignatura)) [42102-232]
+2024-11-25 15:48:34.789133+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE asignacion(cod_aula INTEGER NOT NULL references aula, cod_asignatura INTEGER NOT NULL references asignatura, fecha date) [42102-232]
+2024-11-25 15:48:34.994838+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE profesor(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:34.996434+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE alumno(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:48:34.997743+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "CURSO" ya existe
+Table "CURSO" already exists; SQL statement:
+CREATE TABLE curso(cod_curso INTEGER PRIMARY KEY NOT NULL) [42101-232]
+2024-11-25 15:48:34.999196+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "PROFESOR" no encontrada
+Table "PROFESOR" not found; SQL statement:
+CREATE TABLE asignatura(cod_asignatura INTEGER PRIMARY KEY NOT NULL, nombre VARCHAR(16), horas int, cod_curso INTEGER references curso, cod_profesor varchar(9) references profesor) [42102-232]
+2024-11-25 15:48:34.999423+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "INCIDENCIA" ya existe
+Table "INCIDENCIA" already exists; SQL statement:
+CREATE TABLE incidencia(cod_incidencia INTEGER PRIMARY KEY NOT NULL, descripcion text) [42101-232]
+2024-11-25 15:48:34.999970+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE reporte(cod_asignatura INTEGER NOT NULL references asignatura, dni_alumno varchar(9) NOT NULL references alumno, cod_incidencia INTEGER NOT NULL references incidencia, PRIMARY KEY (cod_asignatura,dni_alumno,cod_incidencia)) [42102-232]
+2024-11-25 15:48:35.000221+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "AULA" ya existe
+Table "AULA" already exists; SQL statement:
+CREATE TABLE aula(cod_aula INTEGER PRIMARY KEY NOT NULL, piso INTEGER, capacidad INTEGER) [42101-232]
+2024-11-25 15:48:35.000630+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ALUMNO" no encontrada
+Table "ALUMNO" not found; SQL statement:
+CREATE TABLE matricula(dni_alumno varchar(9) NOT NULL references alumno, cod_asignatura INTEGER NOT NULL references asignatura, calificacion INTEGER,  PRIMARY KEY (dni_alumno, cod_asignatura)) [42102-232]
+2024-11-25 15:48:35.001119+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE asignacion(cod_aula INTEGER NOT NULL references aula, cod_asignatura INTEGER NOT NULL references asignatura, fecha date) [42102-232]
+2024-11-25 15:51:59.688900+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE profesor(dni varchar(9) PRIMARY KEY NOT NULL, nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:51:59.690219+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "VACHAR"
+Unknown data type: "VACHAR"; SQL statement:
+CREATE TABLE alumno(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP vachar(5),telefono varchar(12)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-25 15:51:59.691500+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "CURSO" ya existe
+Table "CURSO" already exists; SQL statement:
+CREATE TABLE curso(cod_curso INTEGER PRIMARY KEY NOT NULL) [42101-232]
+2024-11-25 15:51:59.693510+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "PROFESOR" no encontrada
+Table "PROFESOR" not found; SQL statement:
+CREATE TABLE asignatura(cod_asignatura INTEGER PRIMARY KEY NOT NULL, nombre VARCHAR(16), horas int, cod_curso INTEGER references curso, cod_profesor varchar(9) references profesor) [42102-232]
+2024-11-25 15:51:59.693911+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "INCIDENCIA" ya existe
+Table "INCIDENCIA" already exists; SQL statement:
+CREATE TABLE incidencia(cod_incidencia INTEGER PRIMARY KEY NOT NULL, descripcion text) [42101-232]
+2024-11-25 15:51:59.694948+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE reporte(cod_asignatura INTEGER NOT NULL references asignatura, dni_alumno varchar(9) NOT NULL references alumno, cod_incidencia INTEGER NOT NULL references incidencia, PRIMARY KEY (cod_asignatura,dni_alumno,cod_incidencia)) [42102-232]
+2024-11-25 15:51:59.695213+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "AULA" ya existe
+Table "AULA" already exists; SQL statement:
+CREATE TABLE aula(cod_aula INTEGER PRIMARY KEY NOT NULL, piso INTEGER, capacidad INTEGER) [42101-232]
+2024-11-25 15:51:59.695704+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ALUMNO" no encontrada
+Table "ALUMNO" not found; SQL statement:
+CREATE TABLE matricula(dni_alumno varchar(9) NOT NULL references alumno, cod_asignatura INTEGER NOT NULL references asignatura, calificacion INTEGER,  PRIMARY KEY (dni_alumno, cod_asignatura)) [42102-232]
+2024-11-25 15:51:59.696275+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" no encontrada
+Table "ASIGNATURA" not found; SQL statement:
+CREATE TABLE asignacion(cod_aula INTEGER NOT NULL references aula, cod_asignatura INTEGER NOT NULL references asignatura, fecha date) [42102-232]
+2024-11-25 15:53:36.993285+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "CURSO" ya existe
+Table "CURSO" already exists; SQL statement:
+CREATE TABLE curso(cod_curso INTEGER PRIMARY KEY NOT NULL) [42101-232]
+2024-11-25 15:53:36.994376+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "INCIDENCIA" ya existe
+Table "INCIDENCIA" already exists; SQL statement:
+CREATE TABLE incidencia(cod_incidencia INTEGER PRIMARY KEY NOT NULL, descripcion text) [42101-232]
+2024-11-25 15:53:36.997932+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "AULA" ya existe
+Table "AULA" already exists; SQL statement:
+CREATE TABLE aula(cod_aula INTEGER PRIMARY KEY NOT NULL, piso INTEGER, capacidad INTEGER) [42101-232]
+2024-11-25 15:53:42.506246+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "PROFESOR" ya existe
+Table "PROFESOR" already exists; SQL statement:
+CREATE TABLE profesor(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP varchar(5),telefono varchar(12)) [42101-232]
+2024-11-25 15:53:42.507853+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ALUMNO" ya existe
+Table "ALUMNO" already exists; SQL statement:
+CREATE TABLE alumno(dni varchar(9) PRIMARY KEY NOT NULL,nombre varchar(16), apellidos varchar(32),direccion varchar(64), nacimiento date,CP varchar(5),telefono varchar(12)) [42101-232]
+2024-11-25 15:53:42.508846+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "CURSO" ya existe
+Table "CURSO" already exists; SQL statement:
+CREATE TABLE curso(cod_curso INTEGER PRIMARY KEY NOT NULL) [42101-232]
+2024-11-25 15:53:42.509815+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNATURA" ya existe
+Table "ASIGNATURA" already exists; SQL statement:
+CREATE TABLE asignatura(cod_asignatura INTEGER PRIMARY KEY NOT NULL, nombre varchar(16), horas int, cod_curso INTEGER references curso, cod_profesor varchar(9) references profesor) [42101-232]
+2024-11-25 15:53:42.510575+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "INCIDENCIA" ya existe
+Table "INCIDENCIA" already exists; SQL statement:
+CREATE TABLE incidencia(cod_incidencia INTEGER PRIMARY KEY NOT NULL, descripcion text) [42101-232]
+2024-11-25 15:53:42.510770+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "REPORTE" ya existe
+Table "REPORTE" already exists; SQL statement:
+CREATE TABLE reporte(cod_asignatura INTEGER NOT NULL references asignatura, dni_alumno varchar(9) NOT NULL references alumno, cod_incidencia INTEGER NOT NULL references incidencia, PRIMARY KEY (cod_asignatura,dni_alumno,cod_incidencia)) [42101-232]
+2024-11-25 15:53:42.510936+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "AULA" ya existe
+Table "AULA" already exists; SQL statement:
+CREATE TABLE aula(cod_aula INTEGER PRIMARY KEY NOT NULL, piso INTEGER, capacidad INTEGER) [42101-232]
+2024-11-25 15:53:42.511101+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "MATRICULA" ya existe
+Table "MATRICULA" already exists; SQL statement:
+CREATE TABLE matricula(dni_alumno varchar(9) NOT NULL references alumno, cod_asignatura INTEGER NOT NULL references asignatura, calificacion INTEGER,  PRIMARY KEY (dni_alumno, cod_asignatura)) [42101-232]
+2024-11-25 15:53:42.511277+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ASIGNACION" ya existe
+Table "ASIGNACION" already exists; SQL statement:
+CREATE TABLE asignacion(cod_aula INTEGER NOT NULL references aula, cod_asignatura INTEGER NOT NULL references asignatura, fecha date) [42101-232]
+2024-11-25 15:54:21.428401+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No hay datos disponibles.
+No data is available [2000-232]
+2024-11-25 15:54:42.354123+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No hay datos disponibles.
+No data is available [2000-232]
+2024-11-25 15:57:36.907930+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No hay datos disponibles.
+No data is available [2000-232]
+2024-11-25 15:59:17.027474+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No hay datos disponibles.
+No data is available [2000-232]

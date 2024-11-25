@@ -34,7 +34,7 @@ public class DAOAlumno implements IDAO<Alumno, Integer> {
     private ArrayList<Alumno> alumnos;
 
     public DAOAlumno() {
-        conn = Connect2H2.getInstance().getConnection();
+        conn = Connect2H2.getInstance().getConn();
         alumno = new Alumno();
         alumnos = new ArrayList<>();
     }
@@ -66,6 +66,7 @@ public class DAOAlumno implements IDAO<Alumno, Integer> {
             PreparedStatement pdst = conn.prepareStatement(READ);     
             pdst.setString(1, dni);
             ResultSet res = pdst.executeQuery();
+            if (res.next()) {
             alumno.setDni(res.getNString("dni"));
             alumno.setNombre(res.getNString("nombre"));
             alumno.setApellidos(res.getNString("apellidos"));
@@ -74,10 +75,12 @@ public class DAOAlumno implements IDAO<Alumno, Integer> {
             alumno.setCp(res.getNString("CP"));
             alumno.setTelefono(res.getNString("telefono"));
             return alumno;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DAOProfesor.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;    }
+        return null;  
+    }
 
     @Override
     public int updateRecord(Alumno model, String dni) {
@@ -103,6 +106,7 @@ public class DAOAlumno implements IDAO<Alumno, Integer> {
             PreparedStatement pdst = conn.prepareStatement(READ_ALL);
             ResultSet res = pdst.executeQuery();
             while (res.next()) {
+                alumno = new Alumno();
                 alumno.setDni(res.getString("dni"));
                 alumno.setNombre(res.getString("nombre"));
                 alumno.setApellidos(res.getString("apellidos"));

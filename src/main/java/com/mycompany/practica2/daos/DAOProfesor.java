@@ -35,7 +35,7 @@ public class DAOProfesor implements IDAO<Profesor, Integer> {
     private ArrayList<Profesor> profesores;
 
     public DAOProfesor() {
-        conn = Connect2H2.getInstance().getConnection();
+        conn = Connect2H2.getInstance().getConn();
         profesor = new Profesor();
         profesores = new ArrayList<>();
     }

@@ -22,8 +22,8 @@ public class DaoFactory {
     public static IDAO getDao (DaoType daoType){
         IDAO dao = null;
         switch (daoType){
-            case ALUMNO -> dao=new DAOAlumno();
-            case PROFESOR-> dao=new DAOProfesor();
+            case ALUMNO -> dao = new DAOAlumno();
+            case PROFESOR-> dao = new DAOProfesor();
                 
         }
         return dao;

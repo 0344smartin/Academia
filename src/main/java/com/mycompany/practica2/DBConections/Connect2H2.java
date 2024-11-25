@@ -5,33 +5,34 @@
 package com.mycompany.practica2.DBConections;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+import static java.sql.DriverManager.getConnection;
 import java.sql.SQLException;
-import org.h2.Driver;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Connect2H2 {
 
-    private final String URI = "jdbc:h2:./db/academia";
+    private static final String URI = "jdbc:h2:./db/academia";
     private Connection conn;
-    private static Connect2H2 H2Instance;
+    private static Connect2H2 instance;
 
     public void Connect2H2() {
-        try {
-            conn = DriverManager.getConnection(URI, "SA", "");
-            System.out.println("Connection to the H2 database was successful!");
-        } catch (SQLException e) {
-            System.err.println(e);
-        }
+
     }
-    
-    public static Connect2H2 getInstance(){
-        if (H2Instance == null ){
-            H2Instance = new Connect2H2();
+
+    public static Connect2H2 getInstance() {
+        if (instance == null) {
+            try {
+                instance = new Connect2H2();
+                instance.conn = getConnection(URI, "SA", "");
+            } catch (SQLException ex) {
+                Logger.getLogger(Connect2H2.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        return H2Instance;
+        return instance;
     }
-       
-    public Connection getConn(){
+
+    public Connection getConn() {
         return conn;
     }
 
